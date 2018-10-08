@@ -1,15 +1,21 @@
 package com.example.vehicles.controller;
 
 import com.example.vehicles.entity.VehicleEntity;
+import com.example.vehicles.exception.ResourceNotFoundException;
 import com.example.vehicles.model.ResponseModel;
+import com.example.vehicles.model.VehicleModel;
 import com.example.vehicles.service.VehicleService;
+import com.example.vehicles.utils.SearchCriteria;
+import com.example.vehicles.utils.VehicleUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 public class MainController {
@@ -19,19 +25,35 @@ public class MainController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseModel retrieveAll(){
-        ResponseModel result = new ResponseModel();
+    public VehicleModel retrieveAll(@RequestParam(value = "search", required = false) String search){
+        VehicleModel result = new VehicleModel();
 
-        result.setResult(vehicleService.getAll());
+        List<SearchCriteria> params = new ArrayList<>();
+
+        VehicleUtils.retriveParams(search, params);
+
+        result.setVehicles(vehicleService.getAll(params));
+
+        if (CollectionUtils.isEmpty(result.getVehicles())){
+            throw new ResourceNotFoundException();
+        }
 
         return result;
     }
 
+
+
     @RequestMapping(value = "/last", method = RequestMethod.DELETE)
-    public void deleteLast(){
+    public VehicleModel deleteLast(){
         System.out.println("Delete");
 
+        VehicleModel vehicleModel = new VehicleModel();
+
         vehicleService.removeLast();
+
+        vehicleModel.setMsg("Registro Eliminado");
+
+        return vehicleModel;
     }
 
 }

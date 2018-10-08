@@ -6,33 +6,29 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import javax.persistence.*;
 import java.util.Objects;
 
-
 @Entity
-@Table(name = "Boat")
-@JsonRootName("Boat")
-public class BoatEnty {
+@Table(name = "Amphibian")
+@JsonRootName("Amphibian")
+public class AmphibianEntity {
+
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "id_sequence_boat")
-    @SequenceGenerator(name = "id_sequence_boat", sequenceName = "id_sequence_boat", allocationSize = 1)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "id_sequence_amp")
+    @SequenceGenerator(name = "id_sequence_amp", sequenceName = "id_sequence_air", allocationSize = 1)
     private Integer id;
 
     @Column(name = "type")
     @JsonProperty("type")
     private String type;
 
-    @Column(name = "numberMotors")
-    @JsonProperty("numberMotors")
-    private Integer numberMotors;
+    @Column(name = "size")
+    @JsonProperty("size")
+    private Integer size;
 
     @Column(name = "fuel")
     @JsonProperty("fuel")
     private String fuel;
-
-    @Column(name = "size")
-    @JsonProperty("size")
-    private Integer size;
 
     public Integer getId() {
         return id;
@@ -50,12 +46,12 @@ public class BoatEnty {
         this.type = type;
     }
 
-    public Integer getNumberMotors() {
-        return numberMotors;
+    public Integer getSize() {
+        return size;
     }
 
-    public void setNumberMotors(Integer numberMotors) {
-        this.numberMotors = numberMotors;
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     public String getFuel() {
@@ -66,36 +62,26 @@ public class BoatEnty {
         this.fuel = fuel;
     }
 
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BoatEnty boatEnty = (BoatEnty) o;
-        return Objects.equals(type, boatEnty.type) &&
-                Objects.equals(numberMotors, boatEnty.numberMotors) &&
-                Objects.equals(fuel, boatEnty.fuel) &&
-                Objects.equals(size, boatEnty.size);
+        AmphibianEntity that = (AmphibianEntity) o;
+        return Objects.equals(type, that.type) &&
+                Objects.equals(size, that.size) &&
+                Objects.equals(fuel, that.fuel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, numberMotors, fuel, size);
+        return Objects.hash(type, size, fuel);
     }
 
     @Override
     public String toString() {
-        return "BoatEnty{" +
+        return "AmphibianEntity{" +
                 "fuel='" + fuel + '\'' +
                 ", id=" + id +
-                ", numberMotors=" + numberMotors +
                 ", size=" + size +
                 ", type='" + type + '\'' +
                 '}';
