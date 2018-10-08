@@ -1,10 +1,10 @@
 # Vehicles API
 This is an example of an REST API to manage Vehicles
 
-##Rest API
+## Rest API
 The REST API to the example app is described below.
 
-###Vehicles
+### Vehicles
 ``There are the operations allowed by Vehicles.``
 ```` http request
 /* Retrive all Vehicles in the database.*/
@@ -13,8 +13,7 @@ GET /
 DELETE /last 
 ````
 
-
-###CAR
+### CAR
 ``There are the operations allowed by Car``
 `````` http request
 #Retrieve all cars
