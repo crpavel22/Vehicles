@@ -6,7 +6,7 @@ The REST API to the example app is described below.
 
 ###Vehicles
 ``There are the operations allowed by Vehicles.``
-```` java
+```` http request
 /* Retrive all Vehicles in the database.*/
 GET / 
 /* Delete the las vehicle added. */
