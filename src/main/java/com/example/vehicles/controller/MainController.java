@@ -23,6 +23,7 @@ public class MainController {
     @Autowired
     private VehicleService vehicleService;
 
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public VehicleModel retrieveAll(@RequestParam(value = "search", required = false) String search){
